@@ -1,0 +1,148 @@
+	@charset="utf-8"
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		background: #dedede;
+		font-size: 15px;
+		line-height: 1.5em;
+		font-family: "Microsoft YaHei";
+		width: 100%;
+		overflow: auto;
+	}
+	.head{
+		background: #333;
+		width: 100%;
+		height: 60px;
+		overflow: hidden;
+		line-height: 60px;
+	}
+	.head h1{
+		float: left;
+		margin: 0;
+	}
+	.head h1 span{
+		display: block;
+		text-indent: -999em;
+	}
+	.head ul{
+		list-style-type: disc;
+		margin-top: 0;
+		padding-top: 0;
+		float: right;
+		margin-right: 30px;
+		font-size: 13px;
+		vertical-align: middle;
+
+	}
+	.head li{
+		display: inline-block;
+		padding-right: 10px;
+		vertical-align: middle;
+	}
+	.head li a{
+		color: white;
+		text-decoration: none;
+	}
+	article p{
+		text-indent: 2em;
+	}
+	.authority,h3{
+		color: #999;
+		text-indent: 0;
+	}
+	.left{
+		float: left;
+		margin-top: 20px;
+		margin-left: 20px;
+		width: 60%;
+	}
+	article,section,aside{
+		margin-bottom: 20px;
+		padding: 20px;
+		background: white;
+	}
+	article,section{
+		box-shadow: 5px 5px 5px #888;
+	}
+	aside{
+		float: right;
+		width: 28%;
+		margin-top: 20px;
+		margin-right: 40px;
+	}
+	article ul{
+		list-style-type: none;
+	}
+	section figure{
+		margin: 5px;
+		display: inline-block;
+		border:1px solid #999;
+		width: 112px;
+	}
+	section figcaption{
+		font-size: 12px;
+		padding: 5px;
+		text-align: center;
+	}
+	section figure img{
+		height: 50px;
+		width: 100px;	
+		padding: 0 6px 6px 6px;	
+		display: inline-block;
+		margin: 0 auto;
+	}
+	article table{
+		width: 100%;
+		border-collapse: collapse;
+	}
+	article table th{
+		color: white;
+		background: #282828;
+
+	}
+	#total{
+		font-weight: bold;
+		background: #A8A8A8;
+	}
+	#sideti{
+		border-left: 3px solid #ccc;
+		padding-left:10px;
+	}
+	aside{
+		float: right;
+	}
+	form>div{
+		margin: 10px 0px;
+	}
+	form>div>label{                  
+		display: inline-block;
+		float: left;
+		text-align: right;
+		width: 35%;
+		margin-right: 10px;
+
+	}
+	form>p>span{
+		margin-left: 36%;
+		color: #ccc;
+	}
+	#tj{
+		width: 100%;
+		height: 40px;
+		background: #06f;
+		border-radius: 10px;
+		color: white;
+		font: 15px "Microsoft YaHei";
+	}
+	footer{
+		clear: both;
+		background: black;
+		color: white;
+		text-align: center;
+		height: 60px;
+	}
+	footer>p{
+		padding-top: 20px;
+	}

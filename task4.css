@@ -1,0 +1,31 @@
+@charset="utf-8"
+*{
+	margin: 0;
+	padding: 0;
+}
+#div1{
+	background: #ccc;
+	height: 200px;
+	width: 400px;
+	position: fixed;
+	margin: auto;
+	top: 0;left: 0;right: 0;bottom: 0;
+}
+#div2{
+	background: #fc0;
+	height: 50px;
+	width: 50px;
+	border-radius: 0 0 50px 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#div3{
+	background: #fc0;
+	height: 50px;
+	width: 50px;
+	border-radius: 50px 0 0 0;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
