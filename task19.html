@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task19</title>
+	<style type="text/css">
+	fieldset{
+		border-radius: 4px;
+		width: 900px;
+	}
+	#put-in{
+		border-radius: 4px;
+		padding: 0 1em;
+		height: 25px;
+	}
+	.btn{
+		background-color: #fff;
+		border-radius: 4px;
+		height: 24px;
+		width: 80px;
+		margin-left: 3px;
+		font-family: "黑体";
+	}
+	#wrap{
+		padding-left: 100px;
+		width: 800px;
+		height: 300px;
+		border:1px solid #000; 
+		border-radius: 3px;
+	}
+	.box{
+		float: left;
+		position: relative;
+		width: 10px;
+		height: 100%;
+		margin-left: 1px;
+	}
+	.num{
+		//background-color: #ff0000;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>输入</legend>
+		<input type="text" id="put-in" placeholder="请输入10-100之间的数">
+		<input type="button" value="左侧入" class="btn" id="insert-left" style="background-color:#ccff33">
+		<input type="button" value="右侧入" class="btn" id="insert-right" style="background-color:#ccff33">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="左侧出" class="btn" id="delete-left" style="background-color:#ff6666">
+		<input type="button" value="右侧出" class="btn" id="delete-right" style="background-color:#ff6666">	
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="冒泡排序" class="btn" id="bubble-sort" style="background-color:#99ccff">
+		<input type="button" value="插入排序" class="btn" id="insert-sort" style="background-color:#99ccff">
+	</fieldset>
+<div id="wrap"></div>	
+
+
+</body>
+<script type="text/javascript">
+	/*
+	*	正则表达式对比10-100数字
+	*/
+	var reg=/^[1-9][0-9]$|^100$/;
+
+	var array=[30, 20 , 40, 20, 50, 100, 110, 77, 37, 95, 94, 29, 45, 63, 96, 49, 94, 23, 56, 74, 64, 43, 56, 23, 64, 74, 14, 43, 63, 13, 63, 75, 32, 87, 45, 75, 39, 50, 10, 96, 45, 35, 64, 53, 65, 12, 34, 86, 48, 35, 52, 70, 40, 80, 15, 20, 47, 88, 100];
+	var wrap=document.getElementById('wrap');
+
+	/*
+	*	去除输入两边的空格
+	*/
+	function trim(str){
+		return str.replace(/\s+/g,"")
+	}
+
+	/*
+	*	渲染图表
+	*/
+	function renderChart(){
+		var str="";
+			for(var i=0;i<array.length;i++){
+				str+="<div class='box'><div class='num' style='height:"+array[i]*2+"px;background-color:rgb("+array[i]+","+array[i]*2+","+array[i]+100+")'></div></div>"
+			}
+			wrap.innerHTML=str;
+	}
+
+	/*
+	*	左侧添加
+	*/
+	function leftInsert(){
+		var insert=document.getElementById('put-in').value;
+		if(reg.test(trim(insert))&&array.length<61){
+			array.unshift(insert);
+			renderChart();	
+		}
+		else if(!reg.test(trim(insert))){
+			alert("请输入10-100之间的数字！")
+		}
+		else if(array.length>60){
+			alert("数据超过60，请删除部分数据！")
+		}
+	}
+
+	/*
+	*	右侧添加
+	*/
+	function rightInsert(){
+		var insert=document.getElementById('put-in').value;
+		if(reg.test(trim(insert))&&array.length<61){
+			array.push(insert);
+			renderChart();
+		}
+		else if(!reg.test(trim(insert))){
+			alert("请输入10-100之间的数字！")
+		}
+		else if(array.length>60){
+			alert("数据超过60，请删除部分数据！")
+		}
+	}
+
+	/*
+	*	左侧删除
+	*/
+	function leftOut(){
+		var insert=document.getElementById('put-in').value;
+		var out=array.shift(insert);
+		renderChart();
+		alert(out);
+	}
+
+	/*
+	*	右侧删除
+	*/
+	function rightOut(){
+		var insert=document.getElementById('put-in').value;
+		var out=array.pop(insert);
+		renderChart();
+		alert(out);
+	}
+
+	/*
+	*	初始化按钮
+	*/
+	function initBtnEvent(){
+		var insert_left = document.getElementById("insert-left");
+		var insert_right = document.getElementById("insert-right");
+		var delete_left = document.getElementById("delete-left");
+		var delete_right = document.getElementById("delete-right");
+		var bubble_sort = document.getElementById("bubble-sort");
+		var insert_sort = document.getElementById("insert-sort");
+
+		insert_left.onclick = function(){leftInsert();};
+		insert_right.onclick = function(){rightInsert();};
+		delete_left.onclick = function(){leftOut();};
+		delete_right.onclick = function(){rightOut();};
+		bubble_sort.onclick = function(){bubbleSort();};
+		insert_sort.onclick = function(){insertSort();};
+	}
+
+	/*
+	*	冒泡排序
+	*/
+	var flag=0; //正反排序
+	function bubbleSort(){
+		var i=0;
+		var t;
+		bubbleSort.bubble=function(){
+			renderChart();
+			var temp=array[i];
+			var index=i;
+			for(var j=i+1;j<array.length;j++){
+				if(temp<array[j]&&flag==0){
+					index=j;
+					temp=array[j];
+					array[j]=array[i];
+					array[i]=temp;
+				}
+				else if(temp>array[j]&&flag==1){
+					index=j;
+					temp=array[j];
+					array[j]=array[i];
+					array[i]=temp;
+				}
+			}
+			i++;
+			if(i>=array.length-1){
+				clearInterval(t);
+				renderChart();
+				if(flag==0){
+					flag=1;
+				}
+				else if(flag==1){
+					flag=0;
+				}
+			}
+			
+		}
+		t=setInterval("bubbleSort.bubble()",50);
+	}
+
+	/*
+	*	插入排序
+	*/
+	var flag1=0;
+	function insertSort(){
+		var i=1;
+		var t;
+		insertSort.insert=function(){
+			renderChart();
+			var temp=array[i];
+			for(var j=i-1;j>=0;j--){
+				if(array[j]>temp&&flag1==1){
+					array[j+1]=array[j];
+				}
+				else if(array[j]<temp&&flag1==0){
+					array[j+1]=array[j];
+				}
+				else{
+					break;
+				}
+			}
+			array[j+1]=temp;
+			i++;
+			if(i>=array.length){
+				clearInterval(t);
+				renderChart();
+				if(flag1==0){
+					flag1=1;
+				}
+				else if(flag1==1){
+					flag1=0;
+				}
+			}	
+		}
+		t=setInterval("insertSort.insert()",50);
+	}
+
+	/*
+	*	全局初始化
+	*/
+	function init(){
+		renderChart();
+		initBtnEvent();
+	}
+	init();
+</script>
+</html>

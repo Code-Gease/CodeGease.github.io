@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task20</title>
+	<style type="text/css">
+	.btn{
+		background-color: #fff;
+		border-radius: 4px;
+		height: 24px;
+		width: 80px;
+		margin-left: 3px;
+		font-family: "黑体";
+	}
+	#put-in{
+		height: 100px;
+	}
+	.num{
+		float: left;
+		height: 60px;
+		background-color: #ff0000;
+		margin-left: 3px;
+		text-align: center;
+		font: 30px "Microsoft Yahei";
+		font-weight: bold;
+		color: #fff;
+		padding-top: 10px;
+	}
+	</style>
+</head>
+<body>
+	<fieldset>
+		<legend>输入</legend>
+		<textarea id="put-in" placeholder="请在此输入数字、中文、英文内容。可用空格、顿号、逗号分隔"></textarea>
+		<input type="button" value="左侧入" class="btn" id="insert-left" style="background-color:#ccff33">
+		<input type="button" value="右侧入" class="btn" id="insert-right" style="background-color:#ccff33">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="左侧出" class="btn" id="delete-left" style="background-color:#ff6666">
+		<input type="button" value="右侧出" class="btn" id="delete-right" style="background-color:#ff6666">	
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="button" value="查询" class="btn" id="search-btn" style="background-color:#99ccff">
+		<input type="text" id="search-text" placeholder="请输入要查找的内容">
+	</fieldset>
+	<div id="wrap"></div>
+
+
+</body>
+<script type="text/javascript">
+	var array=[];
+	var wrap=document.getElementById('wrap');
+	var reg=/,+|\s+|，+|、+/g;
+	function leftInsert(){
+		var insert=document.getElementById('put-in').value;
+		var newArray=[];
+		var newStr="";
+		newStr=insert.replace(reg,":");
+		newArray=newStr.split(":");
+		for(var i in newArray){
+			array.unshift(newArray[i]);
+			var str="";
+			for(var i=0;i<array.length;i++){
+				str+="<div class='num'>"+array[i]+"</div>"
+			}
+			wrap.innerHTML=str;	
+		}
+	}
+	function rightInsert(){
+		var insert=document.getElementById('put-in').value;
+		var newArray=[];
+		var newStr="";
+		newStr=insert.replace(reg,":");
+		newArray=newStr.split(":");
+		for(var i in newArray){
+			array.push(newArray[i]);
+			var str="";
+			for(var i=0;i<array.length;i++){
+				str+="<div class='num'>"+array[i]+"</div>"
+			}
+			wrap.innerHTML=str;	
+		}
+	}
+	function leftOut(){
+		var insert=document.getElementById('put-in').value;
+		var out=array.shift(insert);
+		var str="";
+		for(var i=0;i<array.length;i++){
+			str+="<div class='num'>"+array[i]+"</div>"
+		}
+		wrap.innerHTML=str;
+		alert(out);
+	}
+	function rightOut(){
+		var insert=document.getElementById('put-in').value;
+		var out=array.pop(insert);
+		var str="";
+		for(var i=0;i<array.length;i++){
+			str+="<div class='num'>"+array[i]+"</div>"
+		}
+		wrap.innerHTML=str;
+		alert(out);
+	}
+	function searchKey(){
+		var searchCon=document.getElementById("search-text").value;
+		var div=document.getElementsByClassName("num");
+		for(var i in div){
+			var inner=div[i].innerHTML;
+			if((inner.indexOf(searchCon)>=0)&&(searchCon!="")){
+				div[i].style.color="blue";
+			}
+			else{
+				div[i].style.color="#fff";
+			}
+		}
+	}
+	function initBtnEvent(){
+		var insert_left = document.getElementById("insert-left");
+		var insert_right = document.getElementById("insert-right");
+		var delete_left = document.getElementById("delete-left");
+		var delete_right = document.getElementById("delete-right");
+		var search_btn = document.getElementById("search-btn");
+
+		insert_left.onclick = function(){leftInsert();};
+		insert_right.onclick = function(){rightInsert();};
+		delete_left.onclick = function(){leftOut();};
+		delete_right.onclick = function(){rightOut();};
+		search_btn.onclick = function(){searchKey();};
+	}
+	function init(){
+		initBtnEvent();
+	}
+	init();
+	
+</script>
+</html>
