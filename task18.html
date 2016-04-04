@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task18</title>
+	<style type="text/css">
+	.btn{
+		background-color: #fff;
+		border-radius: 4px;
+		height: 20px;
+		width: 100px;
+		margin-left: 3px;
+		font-family: "黑体";
+	}
+	.num{
+		float: left;
+		height: 60px;
+		background-color: #ff0000;
+		margin-left: 3px;
+		text-align: center;
+		font: 30px "Microsoft Yahei";
+		font-weight: bold;
+		color: #fff;
+		padding-top: 10px;
+	}
+	</style>
+</head>
+<body>
+	<input type="text" id="put-in">
+	<input type="button" value="左侧入" class="btn" onclick="leftInsert()">
+	<input type="button" value="右侧入" class="btn" onclick="rightInsert()">
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="左侧出" class="btn" onclick="leftOut()">
+	<input type="button" value="右侧出" class="btn" onclick="rightOut()">
+	<br>
+	<div id="wrap"></div>
+
+
+</body>
+<script type="text/javascript">
+	var array=[];
+	var wrap=document.getElementById('wrap');
+	function leftInsert(){
+		var insert=document.getElementById('put-in').value;
+		array.unshift(insert);
+		var str="";
+		for(var i=0;i<array.length;i++){
+			str+="<div class='num'>"+array[i]+"</div>"
+		}
+		wrap.innerHTML=str;
+	}
+	function rightInsert(){
+		var insert=document.getElementById('put-in').value;
+		array.push(insert);
+		var str="";
+		for(var i=0;i<array.length;i++){
+			str+="<div class='num'>"+array[i]+"</div>"
+		}
+		wrap.innerHTML=str;
+	}
+	function leftOut(){
+		var insert=document.getElementById('put-in').value;
+		var out=array.shift(insert);
+		var str="";
+		for(var i=0;i<array.length;i++){
+			str+="<div class='num'>"+array[i]+"</div>"
+		}
+		wrap.innerHTML=str;
+		alert(out);
+	}
+	function rightOut(){
+		var insert=document.getElementById('put-in').value;
+		var out=array.pop(insert);
+		var str="";
+		for(var i=0;i<array.length;i++){
+			str+="<div class='num'>"+array[i]+"</div>"
+		}
+		wrap.innerHTML=str;
+		alert(out);
+	}
+</script>
+</html>
