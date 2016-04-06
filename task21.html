@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task21</title>
+	<style type="text/css">
+	.red{
+		float: left;
+		height: 60px;
+		background-color: #ff0000;
+		margin-left: 3px;
+		text-align: center;
+		font: 30px "Microsoft Yahei";
+		font-weight: bold;
+		color: #fff;
+		padding-top: 10px;
+	}
+	#hobby-wrap{
+		clear: both;
+	}
+	</style>
+</head>
+<body>
+	<div>Tag:<input type="text" id="tag-input" placeholder="输入标签"></div>
+	<br>
+	<div id="wrap"></div>
+	<div id="hobby-wrap">
+		<textarea id="hobby-input">篮球，music,吃饭、睡觉   哈哈哈哈 666</textarea><br>
+		<button id="hobby-btn">确认</button>
+		<div id="hobby-container"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	var tags=[];
+	var wrap=document.getElementById('wrap');
+	var tagId=document.getElementById("tag-input");
+	var hobbys=[];
+	var hobbyWrap=document.getElementById("hobby-container");
+
+	/*
+	*	实现去空格功能
+	*/
+	function trim(str){
+		var reg=/\s+/g;
+		return str.replace(reg,"");
+	}
+
+	/*
+	*	实现分割数组
+	*/
+	function splitTags(str){
+		return str.split(/[;,，\s\n；、]+/);
+	}
+
+	/*
+	*	实现tag数组添加
+	*/
+	function arrayPush(data){
+		if(tags.length>=10){
+			tags.shift(tags[0]);
+			tags.push(data)
+		}
+		else{
+			tags.push(data);	
+		}
+	}
+
+	/*
+	*	tags可视化
+	*/
+	function renderTags(){
+		var str="";
+		for(var i=0;i<tags.length;i++){
+			str+="<div class='red'>"+tags[i]+"</div>";
+			
+		}
+		wrap.innerHTML=str;
+		addDivEvent();
+	}
+
+	/*
+	*	实现tag添加
+	*/
+	function addTags(){
+		document.onkeyup=function(event){
+			var tagValue=tagId.value;
+			var e=event||window.event;
+			if(e.keyCode==13||/[;,，\s\n；、]+/.test(tagValue)){
+				var newTags=splitTags(trim(tagValue));
+				var dataTag=newTags[0];
+				if(tags.indexOf(dataTag)==-1){
+					arrayPush(dataTag);
+					renderTags();
+				}
+				tagId.value="";
+			}
+		}
+	}
+
+	/*
+	*	添加div事件
+	*/
+	function addDivEvent(){
+		for(var i=0;i<wrap.childNodes.length;i++){
+			var temp;
+			wrap.childNodes[i].onmouseover=function(){
+				temp=this.innerHTML;
+			 	this.style.backgroundColor = "green"; 
+			 	this.innerHTML = "删除"+temp+"?";
+			}
+			wrap.childNodes[i].onmouseout=function(){
+				this.style.backgroundColor = "red"; 
+			 	this.innerHTML = temp;
+			}
+			addEvent(wrap.childNodes[i],"click",function(i){
+				return function(){tags.splice(i,1);renderTags()}
+			}(i))
+		}
+	}
+
+	/*
+	*	保证hobby中内容不重复
+	*/
+	function hobbyPush(str){
+		if(hobbys.length>=10){
+			hobbys.shift(hobbys[0]);
+			hobbys.push(str);
+		}
+		else{
+			hobbys.push(str);
+		}
+	}
+
+	/*
+	*	添加hobby功能
+	*/
+	function addHobby(){
+		var hobby=document.getElementById("hobby-input").value;
+		var newArray=[];
+		var newStr="";
+		newStr=hobby.replace(/[;,，\s\n；、]+/g,";")
+		newArray=newStr.split(";");
+		for(var i in newArray){
+			if(hobbys.indexOf(newArray[i])==-1){
+				hobbyPush(newArray[i]);
+				var str="";
+				for(var i=0;i<hobbys.length;i++){
+					str+="<div class='red'>"+hobbys[i]+"</div>"
+				}
+				hobbyWrap.innerHTML=str;	
+			}
+		}
+	}
+
+	function init(){
+		addTags();	
+		document.getElementById("hobby-btn").onclick=function(){addHobby()};
+	}
+	init();
+</script>
+</html>
