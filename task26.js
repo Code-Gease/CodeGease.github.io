@@ -222,10 +222,20 @@ var commander=function(name){
 }
 //指挥官方法
 commander.prototype.send=function(msg,to){
-	mediator.send(msg,to);
+	var console_body=document.getElementsByClassName("console-body")[0];
+	var newp=document.createElement("span");
+	newp.innerHTML="正在发送<br>";
+	console_body.appendChild(newp);
+	setTimeout(function(){mediator.send(msg,to);},1000);
+	//mediator.send(msg,to);
 }
 commander.prototype.create=function(name,num){
-	mediator.create(name,num);
+	var console_body=document.getElementsByClassName("console-body")[0];
+	var newp=document.createElement("span");
+	newp.innerHTML="正在发送<br>";
+	console_body.appendChild(newp);
+	setTimeout(function(){mediator.create(name,num);},1000);
+	// mediator.create(name,num);
 }
 
 //渲染飞行器
@@ -278,7 +288,7 @@ function init(){
 			fly_btn.onclick=function(){fly_btn.disabled="disabled";stop_btn.disabled="";director.send("飞行",mediator.all["craft"+j+""]);}
 
 			var stop_btn=document.getElementsByClassName("stop-status")[i];
-			stop_btn.onclick=function(){mediator.send("停止",mediator.all["craft"+j+""]);fly_btn.disabled="";stop_btn.disabled="disabled";}
+			stop_btn.onclick=function(){fly_btn.disabled="";stop_btn.disabled="disabled";director.send("停止",mediator.all["craft"+j+""]);}
 
 			//初始化时，只可以创建飞船
 			destroy_btn.disabled="disabled";
