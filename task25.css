@@ -1,0 +1,111 @@
+@charset="utf-8"
+body{
+	margin:0;
+	padding: 0;
+}
+.wrap{
+	margin: 0 auto;
+	padding: 0;
+	border: 3px solid #6600cc;
+	border-radius: 10px;
+	width: 600px;
+}
+.content-header{
+	padding: 10px 0;
+	width: 100%;
+	height: 30px;
+	background-color: #6666cc;
+}	
+.content-header>input{
+	margin: 0 30px 0 50px;
+}
+.container{
+	padding: 0;
+	width: 100%;
+	height: 800px;
+	background-color: #fff;
+}
+#tree-title{
+	margin:0 50px;
+	font:15px "Microsoft Yahei";
+}
+.icon-draw{
+	background: url(img/toggle-small.png) 0 0 no-repeat;
+}
+.btnGroup{
+	margin: 0 0 0 5px;
+	display: inline-block;;
+}
+.title{
+	margin-left: .2em;
+}
+.inner{
+	margin-left: .5em;
+}
+.tree,
+.tree ul {
+    margin:0 0 0 0.5em;
+    padding:0;
+    list-style:none;
+    color:#123;
+    position:relative;
+}
+
+.tree:before,
+.tree ul:before{
+	content:"";
+    display:block;
+    width:0;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    border-left:1px solid;
+}
+.tree li {
+    margin:0;
+    padding:0 .5em;
+    line-height:2em;
+    position:relative;
+}
+.tree li:before{
+	content: "";
+	display: block;
+	width: 10px;
+	height: 0;
+	border-top: 1px solid;
+	margin-top:-1px;
+    position:absolute;
+    top:1em;
+    left:0;
+}
+.tree li:last-child:before {
+    background:white;
+    height:auto;
+    top:1em;
+    bottom:0;
+}
+.tree li .btnGroup{
+    padding-left: 1em;
+    display: none;
+}
+.btnGroup>i{
+    margin-right:0.5em;
+}
+.tree li>.title:hover,
+#tree-index:hover{
+    cursor:pointer;
+    color:dimgray;
+}
+.tree li>.title:hover>.btnGroup{
+	display:inline-block;
+}
+.btnGroup>i:first-child:hover{
+	color: #06aE9B;
+}
+.btnGroup>i:nth-child(2):hover{
+	color: #d84663;
+}
+.btnGroup>i:last-child:hover{
+	color: #4663d8;
+}

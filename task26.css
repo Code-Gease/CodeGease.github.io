@@ -1,0 +1,131 @@
+@charset="utf-8"
+body{
+	padding:0;
+	margin: 0;
+	background-color: #000;
+}
+.operator,.console{
+	font-family: "Microsoft Yahei";
+	width: 500px;
+}
+.operator-head,.console-head{
+	padding: 5px;
+	background-color: #3333ff;
+	text-align: center;
+	width: 100%;
+	color: #fff;
+}
+.operator-body,.console-body{
+	padding: 5px;
+	background-color: #000;
+	color: #fff;
+	width: 100%;
+}
+.console-body{
+	height: 410px;
+	overflow: auto;
+}
+.earth{
+	width: 100px;
+	height: 100px;
+	border-radius: 100px;
+	background-color: #06c;
+	position: absolute;
+	left: 67%;
+	top: 43%;
+}
+[class*="orbit-"]{
+	border: 2px solid #000;
+	position: fixed;
+}
+.orbit-one{
+	left: 860px;
+	top: 236px;
+	width: 150px;
+	height: 150px;
+	border-radius: 130px;
+}
+.orbit-two{
+	left: 816px;
+	top: 190px;
+	width: 240px;
+	height: 240px;
+	border-radius: 240px;
+}
+.orbit-three{
+	left: 770px;
+	top: 148px;
+	width: 330px;
+	height: 330px;
+	border-radius: 330px;
+}
+.orbit-four{
+	left: 718px;
+	top: 100px;
+	width: 430px;
+	height: 430px;
+	border-radius: 430px;
+}
+[class*="ship"]{
+	height: 20px;
+	width: 40px;
+	background-color: #90c;
+	position: fixed;
+	text-align: center;
+	color: #fff;
+	font-family: "Microsoft Yahei";
+	-webkit-transform:rotate(0deg);
+	-moz-transform:rotate(0deg);
+	-ms-transform:rotate(0deg);
+	-o-transform:rotate(0deg);
+	transform:rotate(0deg);
+}
+.ship1{
+	display: none;
+	left: 915px;
+	top: 230px;
+	-webkit-transform-origin: center 85px;
+    -moz-transform-origin: center 85px;
+    -ms-transform-origin: center 85px;
+    -o-transform-origin: center 85px;
+    transform-origin: center 85px;
+}
+.ship2{
+	display: none;
+	left: 915px;
+	top: 184px;
+	-webkit-transform-origin: center 130px;
+    -moz-transform-origin: center 130px;
+    -ms-transform-origin: center 130px;
+    -o-transform-origin: center 130px;
+    transform-origin: center 130px;
+}
+.ship3{
+	display: none;
+	left: 915px;
+	top: 140px;
+	-webkit-transform-origin: center 175px;
+    -moz-transform-origin: center 175px;
+    -ms-transform-origin: center 175px;
+    -o-transform-origin: center 175px;
+    transform-origin: center 175px;
+}
+.ship4{
+	display: none;
+	left: 915px;
+	top: 90px;
+	-webkit-transform-origin: center 225px;
+    -moz-transform-origin: center 225px;
+    -ms-transform-origin: center 225px;
+    -o-transform-origin: center 225px;
+    transform-origin: center 225px;
+}
+.btn{
+	font-family: "Microsoft Yahei"
+}
+.success{
+	color: #3c0;
+}
+.defeat{
+	color: #c00;
+}
