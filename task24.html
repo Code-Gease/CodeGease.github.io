@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task24</title>
+	<style type="text/css">
+		body {
+    margin: 0;
+    padding: 0;
+	}
+	h1 {
+	    margin: 40px auto;
+	    text-align: center;
+	}
+	div {
+	    display: flex;
+	    border: 1px solid #888888;
+	    justify-content: space-around;
+	    align-items: center;
+	    background-color: #fff;
+	}
+	span {
+	    align-self: flex-start;
+	}
+	.container {
+	    height: 150px;
+	}
+	.cat, .note {
+	    height: 120px;
+	}
+	.fish {
+	    height:120px
+	}
+	.apple {
+	    height: 90px;
+	}
+	.phone {
+	    height: 90px;
+	}
+	.catRight {
+	    height: 90px;
+	}
+	.pear, .pig, .cala, .soccer,.book, .school  {
+	    height: 60px;
+	}
+	.human ,.program {
+	    height: 90px;
+	}
+	.code, .operate,.man,.glass {
+	    height: 60px;
+	}
+	.bement {
+	    height: 60px;
+	}
+	.scat {
+	    height: 40px;
+	}
+	header{
+		margin: 50px;
+		width: 1100px;
+		display: inline-flex;
+		justify-content:space-around;
+	}
+	.add{
+		background-color: #fff;
+		padding:0 5px;
+		margin: 0 5px;
+	}
+	</style>
+</head>
+<body>
+	<h1>javaScript与树（二）</h1>
+	<header>
+		<button id="predep-btn">前序深度遍历</button>
+		<input type="text" placeholder="请输入搜索的关键词" id="key-data">
+		<button id="begin-search">开始搜索</button>
+		<button id="delete-btn">删除选中节点</button>
+		<input type="text" placeholder="新添节点的内容" id="add-data">
+		<button id="add-btn">增加子节点</button>
+	</header>
+	    <div class ="container add" id="root"><span>Super</span>
+	        <div class="cat add"><span>Cat</span>
+	            <div class="apple add"><span>Apple</span>
+	                <div class="pear add"><span>Pear</span></div>
+	                <div class="pig add"><span>Pig</span></div>
+	                <div class="cala add"><span>Cala</span></div>
+	                <div class="soccer add"><span>Soccer</span></div>
+	            </div>
+	            <div class="phone add"><span>Phone</span></div>
+	            <div class="catRight add">
+	                <div class="book add"><span>Book</span></div>
+	                <div class="school add"><span>School</span></div>
+	            </div>
+	        </div>
+	        <div class ="note add"><span>Note</span>
+	            <div class="human add"><span>Human</span>
+	                <div class="code add"><span>Code</span></div>
+	                <div class="operate add"><span>Operate</span></div>
+	                <div class="man add"><span>Man</span></div>
+	            </div>
+	            <div class="program add"><span>Program</span>
+	                <div class="bement add"><span>Bement</span>
+	                    <div class="scat add"><span>Cat</span></div>
+	                </div>
+	                <div class="glass add"><span>Glass</span></div>
+	            </div>
+	        </div>
+	        <div class="fish add"><span>Fish</span></div>
+	    </div>
+</body>
+	<script type="text/javascript">
+	var interval;
+	var selectDiv;
+	var addDiv;
+
+	/*
+	*	前序深度遍历树
+	*/
+	function depTravelPre(root,tree){
+		if(root){
+			tree.push(root);
+			var children=root.children;
+			for(var i=0;i<children.length;i++){
+				if(children[i].nodeName!="SPAN"){
+					depTravelPre(children[i],tree);
+				}
+			}
+		}
+	}
+
+	/*
+	*	渲染节点
+	*/
+	function renderDiv(tree,result){
+		if(!result){
+			var i=0;
+			tree[i++].style.backgroundColor="blue";
+			interval=setInterval(function(){
+				if(i<tree.length){
+					tree[i-1].style.backgroundColor="#fff";
+					tree[i++].style.backgroundColor="blue";
+				}
+				else{
+					tree[i-1].style.backgroundColor="#fff";
+					clearInterval(interval);
+				}
+			},500)
+		}
+		else{
+			if(result.length==0){
+				alert("没有找到相应的节点！");
+				return;
+			}
+			var i=0;
+			tree[i++].style.backgroundColor="blue";
+			interval=setInterval(function(){
+				if(i<tree.length){
+					if(result.indexOf(tree[i-1])==-1){
+						tree[i-1].style.backgroundColor="#fff";
+					}
+					else{
+						tree[i-1].style.backgroundColor="red";
+					}
+					tree[i++].style.backgroundColor="blue";
+				}
+				else{
+					if(result.indexOf(tree[i-1])==-1){
+						tree[i-1].style.backgroundColor="#fff";
+					}
+					else{
+						tree[i-1].style.backgroundColor="red";
+					}
+					clearInterval(interval);
+				}
+			},500)
+		}
+
+	}
+
+	/*
+	*	搜索
+	*/
+	function search(root,process,result,key) {
+        if(root) {
+            process.push(root);
+            var children = root.children;
+            for(var i = 0; i< children.length; i++) {
+                if(children[i].nodeName == "SPAN") {
+                    if(children[i].innerText == key) {
+                        var par =children[i].parentNode;
+                        result.push(par);
+                    }
+                }
+                if(children[i].nodeName != "SPAN") {
+                    search(children[i],process,result,key);
+                }
+            }
+        }
+    }
+
+	/*
+	*	重置
+	*/
+    function reset(tree,result) {
+        clearInterval(interval);
+        var allDivs = document.getElementsByTagName("div");
+        for(var i = 0; i< allDivs.length; i++) {
+            allDivs[i].style.backgroundColor= "#fff";
+        }
+        tree.length =0;
+        result.length =0;
+        selectDiv=""
+    }
+
+    /*
+    *	点击选择节点
+    */
+    function chooseNode(tree){
+    	for(var i=0;i<tree.length;i++){
+    		tree[i].onclick=function(e){
+    			clearDiv(tree);
+    			this.style.backgroundColor="yellow";
+    			e.stopPropagation();
+    			selectDiv=this;
+    		}
+    	}
+    }
+
+    /*
+    *	删除选择节点
+    */
+    function deleteNode(){
+    	if(selectDiv===undefined){
+    		alert("请选择要删除对象");
+    	}
+    	else{
+	    	selectDiv.parentNode.removeChild(selectDiv);
+	    	}
+    }
+
+    /*
+    *	选择节点内添加子节点
+    */
+    function addNode(){
+    	addDiv=document.getElementById("add-data").value;
+    	if(selectDiv===undefined){
+    		alert("请添加操作节点");
+    	}
+    	else if(addDiv==""){
+    		alert("请输入添加对象");
+    	}
+    	else{
+    		var newdiv=document.createElement("div");
+    		newdiv.className="add";
+    		newdiv.innerHTML="<span>"+addDiv+"</span>"
+	    	selectDiv.appendChild(newdiv);
+	    	document.getElementById("add-data").value="";
+	    	}
+    }
+
+    /*
+	*	清理之前选中元素
+	*/
+	function clearDiv(tree){
+		for(var i=0;i<tree.length;i++){
+			tree[i].style.backgroundColor="#fff";
+		}
+		clearInterval(interval);
+		result=[];
+		selectDiv="";
+		
+	}
+
+	/*
+	*	初始化函数
+	*/
+	function init(){
+		var result=[];
+		var tree=[];
+		var root=document.getElementById("root");
+		var predepBtn=document.getElementById("predep-btn");
+		var searchBtn=document.getElementById("begin-search");
+		var deleteBtn=document.getElementById("delete-btn");
+		var addBtn=document.getElementById("add-btn");
+
+		depTravelPre(root,tree);
+		chooseNode(tree);
+		deleteBtn.addEventListener("click",function(){
+			deleteNode();
+		})
+		addBtn.addEventListener("click",function(){
+			addNode();
+			depTravelPre(root,tree);
+			chooseNode(tree);
+		})
+		predepBtn.addEventListener("click",function(){
+			clearDiv(tree);
+			renderDiv(tree);	
+		})
+		searchBtn.addEventListener("click",function(){
+			var key=document.getElementById("key-data").value;
+			reset(tree,result);
+			search(root,tree,result,key)
+			renderDiv(tree,result);
+		})
+	}
+	init();
+	</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task25</title>
+	<link rel="stylesheet" type="text/css" href="task25.css">
+	<link rel="stylesheet" type="text/css" href="icon25.css">	
+</head>
+<body>
+	<div class="wrap">
+		<header class="content-header">
+			<input type="text" placeholder="请输入查询内容" id="search-data">
+			<button id="search-btn" onclick="search()">搜索</button>
+		</header>
+		<br>
+		<div class="container">
+			<div id="tree-title">
+				<div id="tree-index" class="title">
+					<i class="iconfont"></i><span class="inner" onclick="collapse(this)">目录</span>
+					<div class="btnGroup"><i class="iconfont" onclick="addNode(this)">&#xe678; 添加</i></div>
+				</div>
+				<ul class="tree" id="tree-content">	
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+	<script type="text/javascript" src="task25.js"></script>
+</body>
+</html>

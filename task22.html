@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task22</title>
+	<style type="text/css">
+	div{
+		border: 1px solid #000;
+		background-color: #fff;
+		display: inline-flex;
+		justify-content:space-around;
+		align-items:center;
+	}
+	.root{
+		width: 1100px;
+		height: 300px;
+	}
+	.child-one{
+		width: 500px;
+		height: 80%;
+	}
+	.child-two{
+		width: 200px;
+		height: 80%;
+	}
+	.child-three{
+		width: 60px;
+		height: 80%;
+	}
+	header{
+		margin: 50px;
+		width: 1100px;
+		display: inline-flex;
+		justify-content:space-around;
+	}
+	</style>
+</head>
+<body>
+	<header>
+		<button>前序遍历</button>
+		<button>中序遍历</button>
+		<button>后序遍历</button>
+	</header>
+	<div class="root" id="h">
+		<div class="child-one" id="d">
+			<div class="child-two" id="b">
+				<div class="child-three" id="a"></div>
+				<div class="child-three" id="c"></div>
+			</div>
+			<div class="child-two" id="f">
+				<div class="child-three" id="e"></div>
+				<div class="child-three" id="g"></div>
+			</div>
+		</div>
+		<div class="child-one" id="l">
+			<div class="child-two" id="j">
+				<div class="child-three" id="i"></div>
+				<div class="child-three" id="k"></div>
+			</div>
+			<div class="child-two" id="n">
+				<div class="child-three" id="m"></div>
+				<div class="child-three" id="o"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var time;
+	/*
+	*	定义一个Node对象
+	*/
+	function Node(data,left,right){
+		this.data=data
+		this.left=left;
+		this.right=right;
+		this.show=show;
+	}
+	var t=0;
+	function show(){
+		var d=this.data;
+		time=setTimeout(function(){d.style.backgroundColor="blue"},t+=300);
+		time=setTimeout(function(){d.style.backgroundColor="#fff"},t+=300);
+	}
+
+	/*
+	*	创建一个二叉树
+	*/
+	function BinTree(){
+		this.root=null;
+		this.insert=insert;
+	    this.preOrder=preOrder;
+		this.inOrder=inOrder;
+		this.postOrder=postOrder;
+	}
+
+	/*
+	*	二叉树插入
+	*/
+	function insert(data){
+		var n=new Node(data,null,null);
+		if(this.root==null){
+			this.root=n;
+		}
+		else{
+			var current=this.root;
+			var parents;
+			while(true){
+				parents=current;
+				if (data.id<=current.data.id){
+					current=current.left;
+					if(current==null){
+						parents.left=n;
+						break;
+					}
+				}
+				else if(data.id>current.data.id){
+					current=current.right;
+					if(current==null){
+						parents.right=n;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	/*
+	*	先序遍历二叉树
+	*/
+	function preOrder(node){
+		if(node!=null){
+			node.show();
+			// alert(node.data.id)
+			preOrder(node.left);
+			preOrder(node.right);
+		}
+	}
+
+	/*
+	*	中序遍历二叉树
+	*/
+	function inOrder(node){
+		if(node!=null){
+			inOrder(node.left);
+			node.show();
+			// alert(node.data.id)
+			inOrder(node.right);
+		}
+	}
+
+	/*
+	*	后遍历二叉树
+	*/
+	function postOrder(node){
+		if(node!=null){
+			postOrder(node.left);
+			postOrder(node.right);
+			node.show();
+		}
+	}
+
+	/*
+	*	初始函数
+	*/
+	(function(){
+		var newTree=new BinTree();
+		var ch=document.getElementsByTagName("div");
+		for(var i=0;i<ch.length;i++){
+		 	newTree.insert(ch[i]);
+		}
+		var preBtn=document.getElementsByTagName("button")[0];
+		var inBtn=document.getElementsByTagName("button")[1];
+		var postBtn=document.getElementsByTagName("button")[2];
+
+		preBtn.onclick=function(){t=0;preOrder(newTree.root)};
+		inBtn.onclick=function(){t=0;inOrder(newTree.root);};
+		postBtn.onclick=function(){t=0;postOrder(newTree.root);};
+	})();
+</script>
+</html>

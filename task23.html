@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task23</title>
+	<style type="text/css">
+		body {
+    margin: 0;
+    padding: 0;
+	}
+	h1 {
+	    margin: 40px auto;
+	    text-align: center;
+	}
+	div {
+	    display: flex;
+	    border: 1px solid #888888;
+	    justify-content: space-around;
+	    align-items: center;
+	    background-color: #fff;
+	}
+	span {
+	    align-self: flex-start;
+	}
+	.container {
+	    width:  99%;
+	    height: 150px;
+	    margin: auto;
+	}
+	.cat, .note {
+	    width: 510px;
+	    height: 120px;
+	}
+	.fish {
+	    width: 210px;
+	    height:120px
+	}
+	.apple {
+	    width: 245px;
+	    height: 90px;
+	}
+	.phone {
+	    width:50px;
+	    height: 90px;
+	}
+	.catRight {
+	    width:110px;
+	    height: 90px;
+	}
+	.pear, .pig, .cala, .soccer,.book, .school  {
+	    width:46px;
+	    height: 60px;
+	}
+	.human ,.program {
+	    width: 230px;
+	    height: 90px;
+	}
+	.code, .operate,.man,.glass {
+	    width: 55px;
+	    height: 60px;
+	}
+	.bement {
+	    width: 100px;
+	    height: 60px;
+	}
+	.scat {
+	    width: 40px;
+	    height: 40px;
+	}
+	header{
+		margin: 50px;
+		width: 1100px;
+		display: inline-flex;
+		justify-content:space-around;
+	}
+	</style>
+</head>
+<body>
+	<h1>javaScript与树（二）</h1>
+	<header>
+		<button id="predep-btn">前序深度遍历</button>
+		<button id="indep-btn">中序深度遍历</button>
+		<button id="postdep-btn">后序深度遍历</button>
+		<button id="backrang-btn">倒序广度遍历</button>
+		<button id="forwardrang-btn">顺序广度遍历</button>
+		<input type="text" placeholder="请输入搜索的关键词" id="key-data">
+		<button id="begin-search">开始搜索</button>
+	</header>
+	    <div class ="container" id="root"><span>Super</span>
+	        <div class="cat"><span>Cat</span>
+	            <div class="apple"><span>Apple</span>
+	                <div class="pear"><span>Pear</span></div>
+	                <div class="pig"><span>Pig</span></div>
+	                <div class="cala"><span>Cala</span></div>
+	                <div class="soccer"><span>Soccer</span></div>
+	            </div>
+	            <div class="phone"><span>Phone</span></div>
+	            <div class="catRight">
+	                <div class="book"><span>Book</span></div>
+	                <div class="school"><span>School</span></div>
+	            </div>
+	        </div>
+	        <div class ="note"><span>Note</span>
+	            <div class="human"><span>Human</span>
+	                <div class="code"><span>Code</span></div>
+	                <div class="operate"><span>Operate</span></div>
+	                <div class="man"><span>Man</span></div>
+	            </div>
+	            <div class="program"><span>Program</span>
+	                <div class="bement"><span>Bement</span>
+	                    <div class="scat"><span>Cat</span></div>
+	                </div>
+	                <div class="glass"><span>Glass</span></div>
+	            </div>
+	        </div>
+	        <div class="fish"><span>Fish</span></div>
+	    </div>
+</body>
+	<script type="text/javascript">
+	var interval;
+
+	/*
+	*	前序深度遍历树
+	*/
+	function depTravelPre(root,tree){
+		if(root){
+			tree.push(root);
+			var children=root.children;
+			for(var i=0;i<children.length;i++){
+				if(children[i].nodeName!="SPAN"){
+					depTravelPre(children[i],tree);
+				}
+			}
+		}
+	}
+
+	/*
+	*	中序深度遍历树
+	*/
+	function depTravelIn(root,tree){
+		if(root){
+			var first=root.firstElementChild;
+			if(first){
+				if(first.nodeName=="SPAN"){
+					first=first.nextElementSibling;
+				}
+				depTravelIn(first,tree)
+			}
+			tree.push(root);
+			var children=root.children;
+			for(var i=0;i<children.length;i++){
+				if(children[i].nodeName!="SPAN"){
+					depTravelIn(children[i+1],tree)
+				}
+			} 
+		}
+	}
+
+	/*
+	*	后序深度遍历树
+	*/
+	function depTravelPost(root,tree){
+		if(root){
+			var children=root.children;
+			for(var i=0;i<children.length;i++){
+				if(children[i].nodeName!="SPAN"){
+					depTravelPost(children[i],tree);
+				}
+			}
+			tree.push(root);
+		}
+	}
+
+	/*
+	*	倒序广度遍历树
+	*/
+	function rangTravelBack(root,tree){
+		var queue=[];
+		if(root!=null){
+			queue.push(root);
+			while(queue.length!=0){
+				var temp=queue.pop();
+				tree.push(temp);
+				var children=temp.children;
+				for(var i=0;i<children.length;i++){
+					if(children[i].nodeName!="SPAN"){
+						queue.push(children[i]);
+					}
+				}
+			}
+		}
+	}
+
+	/*
+	*	顺序广度遍历树
+	*/
+	function rangTravelForward(root,tree){
+		var stack=[];
+		if(root!=null){
+			stack.push(root);
+			while(stack.length!=0){
+				var temp=stack.shift();
+				tree.push(temp);
+				var children=temp.children;
+				for(var i=0;i<children.length;i++){
+					if(children[i].nodeName!="SPAN"){
+						stack.push(children[i]);
+					}
+				}
+			}
+		}
+	}
+
+	/*
+	*	渲染节点
+	*/
+	function renderDiv(tree,result){
+		if(!result){
+			var i=0;
+			tree[i++].style.backgroundColor="blue";
+			interval=setInterval(function(){
+				if(i<tree.length){
+					tree[i-1].style.backgroundColor="#fff";
+					tree[i++].style.backgroundColor="blue";
+				}
+				else{
+					tree[i-1].style.backgroundColor="#fff";
+					clearInterval(interval);
+				}
+			},500)
+		}
+		else{
+			if(result.length==0){
+				alert("没有找到相应的节点！");
+				return;
+			}
+			var i=0;
+			tree[i++].style.backgroundColor="blue";
+			interval=setInterval(function(){
+				if(i<tree.length){
+					if(result.indexOf(tree[i-1])==-1){
+						tree[i-1].style.backgroundColor="#fff";
+					}
+					else{
+						tree[i-1].style.backgroundColor="red";
+					}
+					tree[i++].style.backgroundColor="blue";
+				}
+				else{
+					if(result.indexOf(tree[i-1])==-1){
+						tree[i-1].style.backgroundColor="#fff";
+					}
+					else{
+						tree[i-1].style.backgroundColor="red";
+					}
+					clearInterval(interval);
+				}
+			},500)
+		}
+
+	}
+
+	/*
+	*	搜索
+	*/
+	function search(root,process,result,key) {
+        if(root) {
+            process.push(root);
+            var children = root.children;
+            for(var i = 0; i< children.length; i++) {
+                if(children[i].nodeName == "SPAN") {
+                    if(children[i].innerText == key) {
+                        var par =children[i].parentNode;
+                        result.push(par);
+                    }
+                }
+                if(children[i].nodeName != "SPAN") {
+                    search(children[i],process,result,key);
+                }
+            }
+        }
+    }
+
+	/*
+	*	重置
+	*/
+    function reset(tree,result) {
+        clearInterval(interval);
+        var allDivs = document.getElementsByTagName("div");
+        for(var i = 0; i< allDivs.length; i++) {
+            allDivs[i].style.backgroundColor= "#fff";
+        }
+        tree.length =0;
+        result.length =0;
+    }
+
+	/*
+	*	初始化函数
+	*/
+	function init(){
+		var result=[];
+		var tree=[];
+		var root=document.getElementById("root");
+		var predepBtn=document.getElementById("predep-btn");
+		var indepBtn=document.getElementById("indep-btn");
+		var postdepBtn=document.getElementById("postdep-btn");
+		var backrangBtn=document.getElementById("backrang-btn");
+		var forwardrangBtn=document.getElementById("forwardrang-btn");
+		var searchBtn=document.getElementById("begin-search");
+
+		predepBtn.addEventListener("click",function(){
+			reset(tree,result);
+			depTravelPre(root,tree);
+			renderDiv(tree);	
+		})
+		indepBtn.addEventListener("click",function(){
+			reset(tree,result);
+			depTravelIn(root,tree);
+			renderDiv(tree);
+		})
+		postdepBtn.addEventListener("click",function(){
+			reset(tree,result);
+			depTravelPost(root,tree);
+			renderDiv(tree);
+		})
+		backrangBtn.addEventListener("click",function(){
+			reset(tree,result);
+			rangTravelBack(root,tree);
+			renderDiv(tree);
+		})
+		forwardrangBtn.addEventListener("click",function(){
+			reset(tree,result);
+			rangTravelForward(root,tree);
+			renderDiv(tree);
+		})
+		searchBtn.addEventListener("click",function(){
+			var key=document.getElementById("key-data").value;
+			reset(tree,result);
+			search(root,tree,result,key)
+			renderDiv(tree,result);
+		})
+		
+	}
+	init();
+	</script>
+</html>
