@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task31</title>
+	<style type="text/css">
+	.wrap{
+		width: 600px;
+		height: 100px;
+		position: fixed;
+		top: 180px;
+		left: 400px;
+		font-family: "Microsoft Yahei";
+		font-size: 25px;
+	}
+	.title{
+		margin-bottom: 30px;
+	}
+	.radio{
+		float: left;
+		margin-left: 40px;
+	}
+	.workplace{
+		width: 250px;
+		height: 30px;
+		border-radius: 5px;
+		border-color: #ccc;
+		font-size: 20px;
+	}
+	select{
+		margin-left: 40px;
+		width: 100px;
+		height: 30px;
+		border-radius: 5px;
+		border-color: #909090;
+	}
+	.outside-body{
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="title">
+			<div class="radio">
+				<input type="radio" id="dorm-stu" name="choose" checked="checked">&nbsp;<label for="dorm-stu">在校生</label>
+			</div>
+			<div class="radio">
+				<input type="radio" id="outside-stu" name="choose">&nbsp;<label for="outside-stu">非在校生</label>
+			</div>
+		</div><br>
+		<div class="dorm-body">
+			<span>学校</span>
+			<select class="city">
+				<option value="bj">北京</option>
+				<option value="sh">上海</option>
+				<option value="wh">武汉</option>
+			</select>
+			<select class="school">
+				<option>清华大学</option>
+				<option>北京大学</option>
+				<option>北京师范大学</option>
+			</select>
+		</div>
+		<div class="outside-body">
+			<span>就业单位</span>
+			<input type="text" class="workplace">
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	(function(){
+		//点击非在校生、在校生
+		var outside_stu=document.getElementById("outside-stu");
+		var dorm_stu=document.getElementById("dorm-stu");
+		var outside_body=document.getElementsByClassName("outside-body")[0];
+		var dorm_body=document.getElementsByClassName("dorm-body")[0];
+		outside_stu.addEventListener("click",function(){
+			outside_body.style.display="block";
+			dorm_body.style.display="none";
+		});
+		dorm_stu.addEventListener("click",function(){
+			outside_body.style.display="none";
+			dorm_body.style.display="block";
+		});
+
+		//切换城市
+		var data={
+			bj:["清华大学","北京大学","北京师范大学"],
+			sh:["复旦大学","上海交通大学","同济大学"],
+			wh:["武汉大学","华中科技大学","华中师范大学"]
+		}
+		var city=document.getElementsByClassName("city")[0];
+		city.addEventListener("change",function(){
+			var school=document.getElementsByClassName("school")[0];
+			var selected=city.options[city.selectedIndex].value;
+			school.innerHTML="";
+			for(var i=0;i<data[selected].length;i++){
+				var opt=data[selected][i];
+				var str="<option>"+opt+"</option>"
+				school.innerHTML+=str;
+			}
+		});
+	})()
+</script>
+</html>
