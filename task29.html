@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task29</title>
+	<style type="text/css">
+	body{
+		user-select:none;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-o-user-select:none;
+	}
+	.wrap{	
+		position: fixed;
+		top: 200px;
+		left: 400px;
+		font-family: "Microsoft Yahei";
+	}
+	label{
+		font-size: 25px;
+		margin-right: 20px;
+	}
+	.content{
+		width: 300px;
+		height: 40px;
+		border-radius: 5px;
+		border-color: #ccc;
+		font-size: 20px;
+	}
+	#check{
+		font-weight: bold;
+		font-size: 25px;
+		width: 90px;
+		height: 50px;
+		background-color: #2F79BA;
+		color: #fff;
+		border-radius: 10px;
+	}
+	.tip{
+		margin-left: 100px;
+		color: #909090;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<label for="name">名称</label>
+		<input type="text" id="name" class="content">
+		<input type="button" id="check" value="验证"><br>
+		<p class="tip">必须，长度为4~16个字符</p>
+	</div>
+
+</body>
+<script type="text/javascript">
+	//计算长度
+	function strLength(str){
+		var count=0;
+		for(var i=0;i<str.length;i++){
+			var code=str.charCodeAt(i);
+			if(code<0||code>128){
+				count+=2;
+			}
+			else{
+				count+=1;
+			}
+		}
+		return count;
+	}
+
+	(function(){
+			var btn=document.getElementById("check");
+			var tip=document.getElementsByClassName("tip")[0];
+		btn.addEventListener("click",function(){
+			var content=document.getElementsByClassName("content")[0];
+			var con=content.value;
+			if(con==""){
+				content.style.borderColor="red";
+				tip.style.color="red";
+				tip.innerHTML="姓名不能为空";
+			}
+			else if(strLength(con)<4||strLength(con)>16){
+				content.style.borderColor="red";
+				tip.style.color="red";
+				tip.innerHTML="请输入4~16位字符";
+			}
+			else{
+				content.style.borderColor="green";
+				tip.style.color="green";
+				tip.innerHTML="格式正确";
+			}
+		})
+	})()
+</script>
+</html>

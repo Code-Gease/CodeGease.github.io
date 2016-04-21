@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>task30</title>
+	<style type="text/css">
+	body{
+		user-select:none;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		-o-user-select:none;
+	}
+	.wrap{	
+		width: 700px;
+		font-family: "Microsoft Yahei";
+	}
+	label{
+		clear: both;
+		left: 180px;
+		font-size: 25px;
+		margin-right: 20px;
+		margin-top: 20px;
+	}
+	.container{
+		width: 600px;
+		margin: 20px;
+	}
+	.content{
+		float: right;
+		width: 400px;
+		height: 35px;
+		border-radius: 5px;
+		border-color: #ccc;
+		font-size: 20px;
+	}
+	#check{
+		clear: both;
+		font-weight: bold;
+		font-size: 25px;
+		width: 90px;
+		height: 50px;
+		background-color: #2F79BA;
+		color: #fff;
+		border-radius: 10px;
+	}
+	.tip{
+		margin-left: 300px;
+		color: #909090;
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="container">
+			<label for="name">名称</label>
+			<input type="text" id="name" class="content"><br>
+			<p class="tip">必须，长度为4~16个字符</p>
+		</div>
+		<div class="container">
+			<label for="mima">密码</label>
+			<input type="password" id="mima" class="content"><br>
+			<p class="tip">请输入密码</p>
+		</div>
+		<div class="container">
+			<label for="mima-confirm">密码确认</label>
+			<input type="password" id="mima-confirm" class="content"><br>
+			<p class="tip">请确认密码</p>
+		</div>
+		<div class="container">
+			<label for="email">邮箱</label>
+			<input type="text" id="email" class="content"><br>
+			<p class="tip">请输入邮箱</p>
+		</div>
+		<div class="container">
+			<label for="phone">手机</label>
+			<input type="text" id="phone" class="content"><br>
+			<p class="tip">请输入手机</p><br>
+		</div>
+		<input type="submit" id="check" value="提交">
+	</div>
+</body>
+<script type="text/javascript">
+	//计算长度
+	function strLength(str){
+		var count=0;
+		for(var i=0;i<str.length;i++){
+			var code=str.charCodeAt(i);
+			if(code<0||code>128){
+				count+=2;
+			}
+			else{
+				count+=1;
+			}
+		}
+		return count;
+	}
+
+	(function(){
+		for(var i=0;i<5;i++){
+			var content=document.getElementsByClassName("content")[i];
+			content.addEventListener("focus",function(i){
+				var tip=document.getElementsByClassName("tip")[i];
+				return function(){tip.style.display="block";}
+			}(i))
+		}
+		var c=[];
+		var t=[];
+		var btn=document.getElementById("check");
+		btn.addEventListener("click",function(){
+			for(var j=0;j<5;j++){
+				c[j]=document.getElementsByClassName("content")[j];
+				t[j]=document.getElementsByClassName("tip")[j];
+			}
+			if(t[0].style.display=="block"){
+				if(c[0].value==""){
+					c[0].style.borderColor="red";
+					t[0].style.color="red";
+					t[0].innerHTML="姓名不能为空";
+				}
+				else if(strLength(c[0].value)<4||strLength(c[0].value)>16){
+					c[0].style.borderColor="red";
+					t[0].style.color="red";
+					t[0].innerHTML="请输入4~16位字符";
+				}
+				else{
+					c[0].style.borderColor="green";
+					t[0].style.color="green";
+					t[0].innerHTML="格式正确";
+				}
+			}
+			if(t[1].style.display=="block"){
+				if(c[1].value==""){
+					c[1].style.borderColor="red";
+					t[1].style.color="red";
+					t[1].innerHTML="密码不能为空";
+				}
+				else{
+					c[1].style.borderColor="green";
+					t[1].style.color="green";
+					t[1].innerHTML="密码可用";
+				}
+			}
+			if(t[2].style.display=="block"){
+				if(c[2].value==""){
+					c[2].style.borderColor="red";
+					t[2].style.color="red";
+					t[2].innerHTML="请确认密码";
+				}
+				else if(c[2].value!=c[1].value){
+					c[2].style.borderColor="red";
+					t[2].style.color="red";
+					t[2].innerHTML="密码输入不一致";
+				}
+				else{
+					c[2].style.borderColor="green";
+					t[2].style.color="green";
+					t[2].innerHTML="密码输入一致";
+				}
+			}
+			//邮箱格式
+			var reg = new RegExp('^([a-zA-Z0-9_\.\-])+@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$', 'i');
+			if(t[3].style.display=="block"){
+				if(c[3].value==""){
+					c[3].style.borderColor="red";
+					t[3].style.color="red";
+					t[3].innerHTML="邮箱不能为空";
+				}
+				else if(!c[3].value.match(reg)){
+					c[3].style.borderColor="red";
+					t[3].style.color="red";
+					t[3].innerHTML="邮箱格式错误";
+				}
+				else{
+					c[3].style.borderColor="green";
+					t[3].style.color="green";
+					t[3].innerHTML="邮箱格式正确";
+				}
+			}
+			if(t[4].style.display=="block"){
+				if(c[4].value==""){
+					c[4].style.borderColor="red";
+					t[4].style.color="red";
+					t[4].innerHTML="手机号码不能为空";
+				}
+				else if(!c[4].value.match(/^1\d{10}$/)){
+					c[4].style.borderColor="red";
+					t[4].style.color="red";
+					t[4].innerHTML="手机号码格式错误";
+				}
+				else{
+					c[4].style.borderColor="green";
+					t[4].style.color="green";
+					t[4].innerHTML="号码正确";
+				}
+			}
+		})
+	})()
+</script>
+</html>
